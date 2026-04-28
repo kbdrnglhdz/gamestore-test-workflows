@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 import { api } from '../services/api';
 
 interface CartItem {
@@ -28,22 +28,19 @@ const CartContext = createContext<CartContextType | null>(null);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<Cart | null>(null);
   const [loading, setLoading] = useState(false);
+  const [total, setTotal] = useState(0);
 
   const refreshCart = async () => {
     try {
       const data = await api.cart.get();
       setCart(data);
+      // BUG: total not updated when cart changes
     } catch (error) {
       console.error('Failed to fetch cart', error);
     }
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      refreshCart();
-    }
-  }, []);
+  // Cart only exists in local state - lost on reload
 
   const addItem = async (productId: number, quantity = 1) => {
     setLoading(true);
@@ -86,7 +83,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, loading, addItem, updateItem, removeItem, clearCart, refreshCart }}>
+    <CartContext.Provider value={{ cart, loading, total, addItem, updateItem, removeItem, clearCart, refreshCart }}>
       {children}
     </CartContext.Provider>
   );

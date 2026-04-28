@@ -28,9 +28,9 @@ gamestore/
 ```bash
 cd backend
 npm install
-npx prisma generate
-npx prisma migrate dev
-npx prisma seed
+npm run prisma:generate
+npm run prisma:migrate
+npm run prisma:seed
 npm run dev
 ```
 

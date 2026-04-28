@@ -4,7 +4,8 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 
 export const Cart = () => {
-  const { cart, updateItem, removeItem, clearCart, loading } = useCart();
+  const { cart, updateItem, removeItem, clearCart, loading, total } = useCart();
+  const [localTotal] = useState(total); // BUG: Uses stale total that never updates
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -26,10 +27,6 @@ export const Cart = () => {
       </div>
     );
   }
-
-  const total = cart.items.reduce((sum, item) => {
-    return sum + parseFloat(item.product.price) * item.quantity;
-  }, 0);
 
   const handleCheckout = () => {
     navigate('/checkout');
@@ -82,10 +79,10 @@ export const Cart = () => {
         ))}
 
         <div className="mt-4 pt-4 border-t">
-          <div className="flex justify-between text-xl font-bold">
-            <span>Total:</span>
-            <span>${total.toFixed(2)}</span>
-          </div>
+            <div className="flex justify-between text-xl font-bold">
+              <span>Total:</span>
+              <span>${localTotal.toFixed(2)}</span>
+            </div>
           <div className="flex gap-2 mt-4">
             <button
               onClick={() => clearCart()}
