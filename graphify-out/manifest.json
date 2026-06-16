@@ -1,0 +1,307 @@
+{
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/vite.config.ts": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "d4711e10501b38d2abdb9152ec4d2475",
+    "semantic_hash": "d4711e10501b38d2abdb9152ec4d2475"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/tsconfig.json": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "450d028c045e79109149481ed0791831",
+    "semantic_hash": "450d028c045e79109149481ed0791831"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/tsconfig.node.json": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "1c139bab5d1a90787cbb951073a5abde",
+    "semantic_hash": "1c139bab5d1a90787cbb951073a5abde"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/postcss.config.js": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "470cfd3ee10fbff840b377e769485f3e",
+    "semantic_hash": "470cfd3ee10fbff840b377e769485f3e"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/package.json": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "57380554d2a331df63ab7c421094c1c8",
+    "semantic_hash": "57380554d2a331df63ab7c421094c1c8"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/tailwind.config.js": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "f4602f20b48980ca0caeaf055febe442",
+    "semantic_hash": "f4602f20b48980ca0caeaf055febe442"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/main.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "08d55118a11148334a9c2da795176b00",
+    "semantic_hash": "08d55118a11148334a9c2da795176b00"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/App.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "1b2d7cf9cee684639d1475254712eda0",
+    "semantic_hash": "1b2d7cf9cee684639d1475254712eda0"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/services/api.ts": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "ebd792aafefa3c7b224523f2a6d8f7b2",
+    "semantic_hash": "ebd792aafefa3c7b224523f2a6d8f7b2"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/context/CartContext.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "3c87cd63cc7ddde2302e586fc1efc572",
+    "semantic_hash": "3c87cd63cc7ddde2302e586fc1efc572"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/context/AuthContext.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "3fdac985bd939a756d80166e76bd353e",
+    "semantic_hash": "3fdac985bd939a756d80166e76bd353e"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/components/Navbar.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "70974300af5f4ddb4163fd927925426d",
+    "semantic_hash": "70974300af5f4ddb4163fd927925426d"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/pages/Products.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "ba8fe73f3133e6855bc3f5ba6eabac49",
+    "semantic_hash": "ba8fe73f3133e6855bc3f5ba6eabac49"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/pages/Cart.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "49ddcc665feff37d578d8f9017a450f8",
+    "semantic_hash": "49ddcc665feff37d578d8f9017a450f8"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/pages/Checkout.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "967bcc93a468cde8782d98904d04d171",
+    "semantic_hash": "967bcc93a468cde8782d98904d04d171"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/pages/Register.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "1dfb7cd65201264539689d6afcdbc284",
+    "semantic_hash": "1dfb7cd65201264539689d6afcdbc284"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/pages/Login.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "5d1d0675242d0a7e078fd7bb709c8a3c",
+    "semantic_hash": "5d1d0675242d0a7e078fd7bb709c8a3c"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/src/pages/Admin.tsx": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "195bcf2a6196559450cdbf3f3f82180d",
+    "semantic_hash": "195bcf2a6196559450cdbf3f3f82180d"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/tsconfig.json": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "06a3a8905d220c80239dd582e12d276c",
+    "semantic_hash": "06a3a8905d220c80239dd582e12d276c"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/package.json": {
+    "mtime": 1780949352.7233968,
+    "ast_hash": "8f43ce2b0285ffeff04653bd6c4083da",
+    "semantic_hash": "8f43ce2b0285ffeff04653bd6c4083da"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/src/index.ts": {
+    "mtime": 1780949352.7233968,
+    "ast_hash": "27ae8933e116ebbc31b54378b8ddb0c1",
+    "semantic_hash": "27ae8933e116ebbc31b54378b8ddb0c1"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/src/routes/products.ts": {
+    "mtime": 1780949352.7233968,
+    "ast_hash": "f04674c2591f958c770b56547038cb23",
+    "semantic_hash": "f04674c2591f958c770b56547038cb23"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/src/routes/auth.ts": {
+    "mtime": 1780949352.7233968,
+    "ast_hash": "d89adb825433e42489695990aedf47e8",
+    "semantic_hash": "d89adb825433e42489695990aedf47e8"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/src/routes/cart.ts": {
+    "mtime": 1780949352.7233968,
+    "ast_hash": "82ce03c33f96e417432347ccf22ae263",
+    "semantic_hash": "82ce03c33f96e417432347ccf22ae263"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/src/routes/orders.ts": {
+    "mtime": 1780949352.7233968,
+    "ast_hash": "666d35f87e339a5efb5005b3ca4b5b29",
+    "semantic_hash": "666d35f87e339a5efb5005b3ca4b5b29"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/src/routes/admin.ts": {
+    "mtime": 1780949352.7233968,
+    "ast_hash": "614dc8a86c7ff107f7422ba9780b50fe",
+    "semantic_hash": "614dc8a86c7ff107f7422ba9780b50fe"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/src/middleware/auth.ts": {
+    "mtime": 1780949352.7233968,
+    "ast_hash": "68a5ab9c6818a685f3f11e2200b6399d",
+    "semantic_hash": "68a5ab9c6818a685f3f11e2200b6399d"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/prisma/seed.ts": {
+    "mtime": 1780949352.7233968,
+    "ast_hash": "ef4bb7bc2fa3ea583b1d64c8b504c1c6",
+    "semantic_hash": "ef4bb7bc2fa3ea583b1d64c8b504c1c6"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/backend/prisma/migrations/20260428005409_gamestore/migration.sql": {
+    "mtime": 1780949352.7233968,
+    "ast_hash": "5ff17cbea653d94e9c672728be48397f",
+    "semantic_hash": "5ff17cbea653d94e9c672728be48397f"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/opencode.json": {
+    "mtime": 1780955872.9881527,
+    "ast_hash": "e5f74d14a81702b55bdf53b33ec991d7",
+    "semantic_hash": "e5f74d14a81702b55bdf53b33ec991d7"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/package.json": {
+    "mtime": 1780955878.2691905,
+    "ast_hash": "c9442b1dfba4cd254e8dc712cf2d3da8",
+    "semantic_hash": "c9442b1dfba4cd254e8dc712cf2d3da8"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/plugins/graphify.js": {
+    "mtime": 1780955797.821616,
+    "ast_hash": "64ccd3c03dbfe0980b6095766f5c4e52",
+    "semantic_hash": "64ccd3c03dbfe0980b6095766f5c4e52"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/AGENTS.md": {
+    "mtime": 1780955983.7499468,
+    "ast_hash": "494559094d68f79862bc2be04c6c3d61",
+    "semantic_hash": "494559094d68f79862bc2be04c6c3d61"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/README.md": {
+    "mtime": 1780949352.7223969,
+    "ast_hash": "97ca7dfe7cfba563d142e47d9ae487eb",
+    "semantic_hash": "97ca7dfe7cfba563d142e47d9ae487eb"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/frontend/index.html": {
+    "mtime": 1780949352.724397,
+    "ast_hash": "7e20fce5166c8a2cdae3200fa9a287a5",
+    "semantic_hash": "7e20fce5166c8a2cdae3200fa9a287a5"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/openspec/config.yaml": {
+    "mtime": 1780952882.8839717,
+    "ast_hash": "9e3e7672b387a282583011181ab35f9a",
+    "semantic_hash": "9e3e7672b387a282583011181ab35f9a"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/openspec/specs/catalog/spec.md": {
+    "mtime": 1780953863.8562799,
+    "ast_hash": "5b34aee01dab43f96dd138452dba2811",
+    "semantic_hash": "5b34aee01dab43f96dd138452dba2811"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/openspec/specs/auth/spec.md": {
+    "mtime": 1780953683.8189318,
+    "ast_hash": "053b8897fcc63658d48893e116bd65dd",
+    "semantic_hash": "053b8897fcc63658d48893e116bd65dd"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/openspec/templates/spec-template.md": {
+    "mtime": 1780956081.1516478,
+    "ast_hash": "269e7e131645ab104b737c6645e2e8a7",
+    "semantic_hash": "269e7e131645ab104b737c6645e2e8a7"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-explore/SKILL.md": {
+    "mtime": 1780952882.8789718,
+    "ast_hash": "fdee11fbfd8f75ef887528be894fefbc",
+    "semantic_hash": "fdee11fbfd8f75ef887528be894fefbc"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-new-change/SKILL.md": {
+    "mtime": 1780952882.8789718,
+    "ast_hash": "d58e1121e42266dc50adc6c7529f06c3",
+    "semantic_hash": "d58e1121e42266dc50adc6c7529f06c3"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-verify-change/SKILL.md": {
+    "mtime": 1780952882.8809717,
+    "ast_hash": "f4a3b280b54e93996b104994b3b0623b",
+    "semantic_hash": "f4a3b280b54e93996b104994b3b0623b"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-bulk-archive-change/SKILL.md": {
+    "mtime": 1780952882.8799717,
+    "ast_hash": "1035290839602f818f63b957b9262dd7",
+    "semantic_hash": "1035290839602f818f63b957b9262dd7"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-sync-specs/SKILL.md": {
+    "mtime": 1780952882.8799717,
+    "ast_hash": "97ab235cf821bfe172a618f1f6160d09",
+    "semantic_hash": "97ab235cf821bfe172a618f1f6160d09"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-propose/SKILL.md": {
+    "mtime": 1780952882.8809717,
+    "ast_hash": "87d12721a7e4f836abeb2998413c8a50",
+    "semantic_hash": "87d12721a7e4f836abeb2998413c8a50"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-archive-change/SKILL.md": {
+    "mtime": 1780952882.8799717,
+    "ast_hash": "8debef1d1f6d9ac2cbe1126493d02c6f",
+    "semantic_hash": "8debef1d1f6d9ac2cbe1126493d02c6f"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-continue-change/SKILL.md": {
+    "mtime": 1780952882.8789718,
+    "ast_hash": "b1cbf33ff4c4952b207bb9edcf31bc99",
+    "semantic_hash": "b1cbf33ff4c4952b207bb9edcf31bc99"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-onboard/SKILL.md": {
+    "mtime": 1780952882.8809717,
+    "ast_hash": "f2b0fffc0f4ca0bd870cab9433261e43",
+    "semantic_hash": "f2b0fffc0f4ca0bd870cab9433261e43"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-ff-change/SKILL.md": {
+    "mtime": 1780952882.8799717,
+    "ast_hash": "fac919b718c2408ee0da35d0890a4887",
+    "semantic_hash": "fac919b718c2408ee0da35d0890a4887"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/skills/openspec-apply-change/SKILL.md": {
+    "mtime": 1780952882.8799717,
+    "ast_hash": "d455bed9ab99b2287d6832b8cfaf7586",
+    "semantic_hash": "d455bed9ab99b2287d6832b8cfaf7586"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-new.md": {
+    "mtime": 1780952882.8819718,
+    "ast_hash": "a0b9d57306d8b2b82c6f128ba83ff16d",
+    "semantic_hash": "a0b9d57306d8b2b82c6f128ba83ff16d"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-archive.md": {
+    "mtime": 1780952882.8829718,
+    "ast_hash": "48a27c2c74ccc0c38f73f5fe1731403b",
+    "semantic_hash": "48a27c2c74ccc0c38f73f5fe1731403b"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-verify.md": {
+    "mtime": 1780952882.8829718,
+    "ast_hash": "a1a293802a720ccd52a540e7db97c3ca",
+    "semantic_hash": "a1a293802a720ccd52a540e7db97c3ca"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-onboard.md": {
+    "mtime": 1780952882.8829718,
+    "ast_hash": "39235b5985ddf18427736891c0804485",
+    "semantic_hash": "39235b5985ddf18427736891c0804485"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-ff.md": {
+    "mtime": 1780952882.8829718,
+    "ast_hash": "b842802793fa791c2e05f8c9acc64228",
+    "semantic_hash": "b842802793fa791c2e05f8c9acc64228"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-explore.md": {
+    "mtime": 1780952882.8819718,
+    "ast_hash": "233cb92d1e1e106957d5bfa8af2dde96",
+    "semantic_hash": "233cb92d1e1e106957d5bfa8af2dde96"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-bulk-archive.md": {
+    "mtime": 1780952882.8829718,
+    "ast_hash": "a3af61b0e0eea7113a9e9827a23ea83e",
+    "semantic_hash": "a3af61b0e0eea7113a9e9827a23ea83e"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-continue.md": {
+    "mtime": 1780952882.8819718,
+    "ast_hash": "b2719b0e0880bcaf42f47b84d507cd69",
+    "semantic_hash": "b2719b0e0880bcaf42f47b84d507cd69"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-apply.md": {
+    "mtime": 1780952882.8819718,
+    "ast_hash": "02ed905504d5fbfabb4d1a57350f0671",
+    "semantic_hash": "02ed905504d5fbfabb4d1a57350f0671"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-sync.md": {
+    "mtime": 1780952882.8829718,
+    "ast_hash": "27b235c9ae806ab46bdff2741e97fb9d",
+    "semantic_hash": "27b235c9ae806ab46bdff2741e97fb9d"
+  },
+  "/home/orangelc/Documents/opencode/projects/gamestore-workshop/.opencode/command/opsx-propose.md": {
+    "mtime": 1780952882.8839717,
+    "ast_hash": "a0c6cfc575d565b5343b1d829a198909",
+    "semantic_hash": "a0c6cfc575d565b5343b1d829a198909"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "product-skills": {
+      "source": "alirezarezvani/claude-skills",
+      "sourceType": "github",
+      "skillPath": "product-team/skills/product-skills/SKILL.md",
+      "computedHash": "65eb11b8bd673ce807f3d85ee05b5fe5752461b4991e29a092127b62d6992f49"
+    }
+  }
+}

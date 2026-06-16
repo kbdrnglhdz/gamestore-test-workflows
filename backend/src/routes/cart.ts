@@ -43,21 +43,48 @@ router.post('/add', authenticate, async (req: AuthRequest, res: Response) => {
       });
     }
 
-    // BUG: Duplicate items get summed instead of incrementing quantity
-    // FIXME: Should check if item exists and increment quantity
     const existingItem = await prisma.cartItem.findFirst({
       where: { cartId: cart.id, productId }
     });
 
+    const product = await prisma.product.findUnique({
+      where: { id: productId }
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    const existingQuantity = existingItem ? existingItem.quantity : 0;
+    if (product.stock < existingQuantity + quantity) {
+      return res.status(400).json({ error: 'Insufficient stock' });
+    }
+
     if (existingItem) {
-      // BUG: Adding as new item instead of updating quantity
-      await prisma.cartItem.create({
-        data: {
-          cartId: cart.id,
-          productId,
-          quantity // BUG: Should be existingItem.quantity + quantity
+      try {
+        await prisma.cartItem.update({
+          where: { id: existingItem.id, quantity: existingItem.quantity },
+          data: { quantity: existingItem.quantity + quantity }
+        });
+      } catch (error: any) {
+        if (error.code === 'P2025') {
+          const refreshed = await prisma.cartItem.findFirst({
+            where: { cartId: cart.id, productId }
+          });
+          if (refreshed) {
+            await prisma.cartItem.update({
+              where: { id: refreshed.id },
+              data: { quantity: refreshed.quantity + quantity }
+            });
+          } else {
+            await prisma.cartItem.create({
+              data: { cartId: cart.id, productId, quantity }
+            });
+          }
+        } else {
+          throw error;
         }
-      });
+      }
     } else {
       await prisma.cartItem.create({
         data: {
@@ -67,9 +94,6 @@ router.post('/add', authenticate, async (req: AuthRequest, res: Response) => {
         }
       });
     }
-
-    // BUG: No stock validation before adding to cart
-    // TODO: Validate stock before adding
 
     const updatedCart = await prisma.cart.findUnique({
       where: { id: cart.id },

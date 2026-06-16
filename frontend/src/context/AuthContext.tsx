@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { api, setTokens, clearTokens, getToken } from '../services/api';
+import { api, setTokens, clearTokens, getToken, startProactiveRefresh, stopProactiveRefresh, setSessionCallbacks, clearSessionCallbacks, extendSession } from '../services/api';
 
 interface User {
   id: number;
@@ -11,9 +11,11 @@ interface User {
 interface AuthContextType {
   user: User | null;
   loading: boolean;
+  sessionExpiring: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name: string) => Promise<void>;
   logout: () => void;
+  extendSession: () => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -21,6 +23,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [sessionExpiring, setSessionExpiring] = useState(false);
 
   useEffect(() => {
     const token = getToken();
@@ -29,6 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         .then(data => {
           if (!data.error) {
             setUser(data);
+            startProactiveRefresh();
           } else {
             clearTokens();
           }
@@ -40,11 +44,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  useEffect(() => {
+    setSessionCallbacks({
+      onExpiryWarning: () => setSessionExpiring(true),
+      onSessionExpired: () => {
+        clearTokens();
+        setUser(null);
+        setSessionExpiring(false);
+        window.location.href = '/login';
+      }
+    });
+
+    return () => {
+      clearSessionCallbacks();
+    };
+  }, []);
+
+  const handleExtendSession = async (): Promise<boolean> => {
+    const success = await extendSession();
+    if (success) {
+      setSessionExpiring(false);
+    }
+    return success;
+  };
+
   const login = async (email: string, password: string) => {
     const data = await api.auth.login({ email, password });
     if (data.error) throw new Error(data.error);
     setTokens(data.token, data.refreshToken);
     setUser(data.user);
+    startProactiveRefresh();
   };
 
   const register = async (email: string, password: string, name: string) => {
@@ -52,16 +81,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (data.error) throw new Error(data.error);
     setTokens(data.token, data.refreshToken);
     setUser(data.user);
+    startProactiveRefresh();
   };
 
   const logout = () => {
     api.auth.logout();
     clearTokens();
     setUser(null);
+    setSessionExpiring(false);
+    stopProactiveRefresh();
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, sessionExpiring, login, register, logout, extendSession: handleExtendSession }}>
       {children}
     </AuthContext.Provider>
   );

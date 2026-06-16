@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { Navbar } from './components/Navbar';
+import { SessionTimeoutToast } from './components/SessionTimeoutToast';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Products } from './pages/Products';
@@ -29,6 +30,7 @@ const AppRoutes = () => {
       <AuthProvider>
         <CartProvider>
           <Navbar />
+          <SessionTimeoutToast />
           <Routes>
             <Route path="/" element={<Navigate to="/products" />} />
             <Route path="/login" element={<Login />} />

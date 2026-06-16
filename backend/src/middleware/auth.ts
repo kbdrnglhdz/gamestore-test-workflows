@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = 'hardcoded-secret-key-12345';
+const JWT_SECRET = process.env.JWT_SECRET || 'hardcoded-secret-key-12345';
+
+if (!process.env.JWT_SECRET) {
+  console.warn('WARNING: JWT_SECRET environment variable is not set. Using hardcoded fallback secret.');
+}
 
 export interface AuthRequest extends Request {
   userId?: number;

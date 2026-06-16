@@ -83,11 +83,15 @@ router.post('/refresh', async (req, res) => {
       return res.status(401).json({ error: 'Invalid refresh token' });
     }
 
-    // BUG: Refresh token is not renewed, returning the same token
+    const newRefreshToken = generateRefreshToken(user.id);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { refreshToken: newRefreshToken }
+    });
+
     const token = generateToken(user.id, user.role);
-    // FIXME: Should generate new refresh token and store it
-    
-    res.json({ token, refreshToken }); // BUG: Returning same refresh token instead of new one
+    res.json({ token, refreshToken: newRefreshToken });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }

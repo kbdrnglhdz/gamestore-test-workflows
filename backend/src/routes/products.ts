@@ -9,10 +9,9 @@ router.get('/', async (req, res) => {
   try {
     const { page = '1', limit = '10', category, minPrice, maxPrice, sort } = req.query;
 
-    // BUG: Pagination is broken - page 2 shows same products
-    // FIXME: Offset calculation is wrong
-    const pageNum = parseInt(page as string);
-    const limitNum = parseInt(limit as string);
+    // Pagination: offset is now computed from page param
+    const pageNum = Math.max(1, parseInt(page as string) || 1);
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit as string) || 10));
     const skip = (pageNum - 1) * limitNum;
 
     // BUG: No caching - every request fetches all products
@@ -44,7 +43,7 @@ router.get('/', async (req, res) => {
     // BUG: N+1 query problem - fetches each product separately
      const products = await prisma.product.findMany({
        where,
-       skip: 0, // BUG: Always returns page 1 results
+        skip,
        take: limitNum,
        orderBy
      });
