@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { TokenExpiredError } from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'hardcoded-secret-key-12345';
 
@@ -16,7 +16,7 @@ export const authenticate = (req: AuthRequest, res: Response, next: NextFunction
   const token = req.headers.authorization?.split(' ')[1];
   
   if (!token) {
-    return res.status(401).json({ error: 'No token provided' });
+    return res.status(401).json({ error: 'No token provided', code: 'MISSING_TOKEN' });
   }
 
   try {
@@ -24,8 +24,11 @@ export const authenticate = (req: AuthRequest, res: Response, next: NextFunction
     req.userId = decoded.userId;
     req.userRole = decoded.role;
     next();
-  } catch {
-    return res.status(401).json({ error: 'Invalid token' });
+  } catch (err) {
+    if (err instanceof TokenExpiredError) {
+      return res.status(401).json({ error: 'Token expired', code: 'TOKEN_EXPIRED' });
+    }
+    return res.status(401).json({ error: 'Invalid token', code: 'INVALID_TOKEN' });
   }
 };
 

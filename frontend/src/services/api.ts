@@ -175,22 +175,58 @@ const fetchWithAuth = async (endpoint: string, options: RequestInit = {}) => {
 export const api = {
   auth: {
     register: async (data: any) => {
-      const response = await fetch(`${API_URL}/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      return response.json();
+      try {
+        const response = await fetch(`${API_URL}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await response.json();
+        if (!response.ok) {
+          throw new Error(json.error || 'Registration failed');
+        }
+        return json;
+      } catch (err: any) {
+        if (err instanceof TypeError) {
+          throw new Error('Network error. Please check your connection.');
+        }
+        throw err;
+      }
     },
     login: async (data: any) => {
-      const response = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      return response.json();
+      try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await response.json();
+        if (!response.ok) {
+          throw new Error(json.error || 'Login failed');
+        }
+        return json;
+      } catch (err: any) {
+        if (err instanceof TypeError) {
+          throw new Error('Network error. Please check your connection.');
+        }
+        throw err;
+      }
     },
-    me: async () => fetchWithAuth('/auth/me').then(r => r.json()),
+    me: async () => {
+      try {
+        const response = await fetchWithAuth('/auth/me');
+        const json = await response.json();
+        if (!response.ok) {
+          throw new Error(json.error || 'Failed to fetch user');
+        }
+        return json;
+      } catch (err: any) {
+        if (err instanceof TypeError) {
+          throw new Error('Network error. Please check your connection.');
+        }
+        throw err;
+      }
+    },
     logout: async () => {
       await fetchWithAuth('/auth/logout', { method: 'POST' });
       clearTokens();
