@@ -5,13 +5,44 @@ import { generateToken, generateRefreshToken, verifyRefreshToken, AuthRequest, a
 const router = Router();
 const prisma = new PrismaClient();
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+interface ValidationRule {
+  field: string;
+  label: string;
+  required?: boolean;
+  email?: boolean;
+}
+
+function validate(body: any, rules: ValidationRule[]): { error: string; code: string } | null {
+  for (const rule of rules) {
+    const value = body[rule.field];
+    if (rule.required && (!value || typeof value !== 'string' || !value.trim())) {
+      return { error: `${rule.label} is required`, code: 'VALIDATION_ERROR' };
+    }
+    if (rule.email && value && !EMAIL_REGEX.test(value)) {
+      return { error: 'Invalid email format', code: 'VALIDATION_ERROR' };
+    }
+  }
+  return null;
+}
+
 router.post('/register', async (req, res) => {
   try {
+    const validationError = validate(req.body, [
+      { field: 'email', label: 'Email', required: true, email: true },
+      { field: 'password', label: 'Password', required: true },
+      { field: 'name', label: 'Name', required: true },
+    ]);
+    if (validationError) {
+      return res.status(400).json(validationError);
+    }
+
     const { email, password, name } = req.body;
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
-      return res.status(400).json({ error: 'Email already exists' });
+      return res.status(400).json({ error: 'Email already exists', code: 'DUPLICATE_EMAIL' });
     }
 
     // BUG: Password stored in plain text
@@ -33,13 +64,21 @@ router.post('/register', async (req, res) => {
     });
 
     res.json({ token, refreshToken, user: { id: user.id, email: user.email, name: user.name, role: user.role } });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
+  } catch {
+    res.status(500).json({ error: 'Internal server error', code: 'INTERNAL_ERROR' });
   }
 });
 
 router.post('/login', async (req, res) => {
   try {
+    const validationError = validate(req.body, [
+      { field: 'email', label: 'Email', required: true, email: true },
+      { field: 'password', label: 'Password', required: true },
+    ]);
+    if (validationError) {
+      return res.status(400).json(validationError);
+    }
+
     const { email, password } = req.body;
 
     // BUG: Comparing plain text passwords directly
@@ -48,7 +87,7 @@ router.post('/login', async (req, res) => {
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Invalid credentials', code: 'INVALID_CREDENTIALS' });
     }
 
     const token = generateToken(user.id, user.role);
@@ -60,8 +99,8 @@ router.post('/login', async (req, res) => {
     });
 
     res.json({ token, refreshToken, user: { id: user.id, email: user.email, name: user.name, role: user.role } });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
+  } catch {
+    res.status(500).json({ error: 'Internal server error', code: 'INTERNAL_ERROR' });
   }
 });
 
@@ -70,7 +109,7 @@ router.post('/refresh', async (req, res) => {
     const { refreshToken } = req.body;
 
     if (!refreshToken) {
-      return res.status(400).json({ error: 'Refresh token required' });
+      return res.status(400).json({ error: 'Refresh token required', code: 'MISSING_REFRESH_TOKEN' });
     }
 
     const decoded = verifyRefreshToken(refreshToken);
@@ -80,7 +119,7 @@ router.post('/refresh', async (req, res) => {
     });
 
     if (!user || user.refreshToken !== refreshToken) {
-      return res.status(401).json({ error: 'Invalid refresh token' });
+      return res.status(401).json({ error: 'Invalid refresh token', code: 'INVALID_REFRESH_TOKEN' });
     }
 
     const newRefreshToken = generateRefreshToken(user.id);
@@ -92,8 +131,8 @@ router.post('/refresh', async (req, res) => {
 
     const token = generateToken(user.id, user.role);
     res.json({ token, refreshToken: newRefreshToken });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
+  } catch {
+    res.status(500).json({ error: 'Internal server error', code: 'INTERNAL_ERROR' });
   }
 });
 
@@ -105,8 +144,8 @@ router.post('/logout', authenticate, async (req: AuthRequest, res: Response) => 
     });
 
     res.json({ message: 'Logged out successfully' });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
+  } catch {
+    res.status(500).json({ error: 'Internal server error', code: 'INTERNAL_ERROR' });
   }
 });
 
@@ -118,12 +157,12 @@ router.get('/me', authenticate, async (req: AuthRequest, res: Response) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'User not found', code: 'USER_NOT_FOUND' });
     }
 
     res.json(user);
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
+  } catch {
+    res.status(500).json({ error: 'Internal server error', code: 'INTERNAL_ERROR' });
   }
 });
 
