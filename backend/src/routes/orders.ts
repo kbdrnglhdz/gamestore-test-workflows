@@ -30,7 +30,7 @@ router.post('/checkout', authenticate, async (req: AuthRequest, res: Response) =
     const orderItems = [];
 
     for (const item of cart.items) {
-      const price = parseFloat(item.product.price);
+      const price = item.product.price;
       total += price * item.quantity;
       
       orderItems.push({
