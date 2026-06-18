@@ -1,9 +1,4 @@
-# Auth Specification
-
-## Purpose
-Authentication and session management for GameStore.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: User Login
 Users SHALL authenticate with email and password to access the system.
@@ -32,50 +27,6 @@ Users SHALL authenticate with email and password to access the system.
 - **WHEN** a user submits the login form with a malformed email (e.g., "not-an-email")
 - **THEN** the system returns a 400 status
 - **AND** the response body SHALL contain `{ "error": "Invalid email format", "code": "VALIDATION_ERROR" }`
-
-### Requirement: Session Persistence
-Users SHALL maintain their session for 15 minutes after login.
-
-#### Scenario: Session timeout
-- **WHEN** 15 minutes pass without any request from an authenticated user
-- **THEN** the session expires
-- **AND** the user must log in again
-
-**KNOWN BUG:** Session expires after 15 minutes regardless of user activity.
-**KNOWN BUG:** Refresh token never renews automatically.
-
-### Requirement: Password Storage
-Users SHALL have their passwords stored securely.
-
-#### Scenario: Password hashing on registration
-- **WHEN** a new user registers with a password
-- **THEN** the password is stored as a hashed value
-
-#### Scenario: Password verification on login
-- **WHEN** a user provides the correct password during login
-- **THEN** the system verifies the hash matches before granting access
-
-**KNOWN BUG:** Passwords are stored in plain text in the database.
-**VIOLATION:** This does NOT follow security best practices.
-
-### Requirement: User Logout
-Users SHALL end their session by logging out of the system.
-
-#### Scenario: Successful logout
-- **WHEN** an authenticated user clicks the logout button
-- **AND** confirms the logout prompt
-- **THEN** the session is terminated
-- **AND** tokens are invalidated on the server
-- **AND** the user is redirected to the login page
-
-#### Scenario: Post-logout access
-- **WHEN** a logged-out user attempts to access a protected resource
-- **THEN** the system returns a 401 Unauthorized error
-
-#### Scenario: Logout API failure
-- **WHEN** the logout API call fails due to a network error
-- **THEN** the user is still logged out locally (tokens cleared, state reset)
-- **AND** the user is redirected to the login page
 
 ### Requirement: User Registration
 Users SHALL create an account with email, password, and name.
@@ -157,3 +108,7 @@ All auth endpoints SHALL handle unexpected errors gracefully without leaking int
 - **THEN** the system returns a 500 status
 - **AND** the response body SHALL contain `{ "error": "Internal server error", "code": "INTERNAL_ERROR" }`
 - **AND** the response SHALL NOT expose internal error details (e.g., stack traces, Prisma error messages)
+
+## ADDED Requirements
+
+No new capabilities are added — all changes modify existing auth requirements.

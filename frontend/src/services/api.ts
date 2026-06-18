@@ -229,7 +229,6 @@ export const api = {
     },
     logout: async () => {
       await fetchWithAuth('/auth/logout', { method: 'POST' });
-      clearTokens();
     }
   },
   products: {

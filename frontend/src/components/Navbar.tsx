@@ -23,7 +23,7 @@ export const Navbar = () => {
                 <Link to="/admin" className="hover:text-gray-300">Admin</Link>
               )}
               <span className="text-gray-400">Hi, {user.name}</span>
-              <button onClick={logout} className="hover:text-gray-300">
+              <button onClick={async () => { if (window.confirm('Are you sure you want to logout?')) await logout(); }} className="text-red-400 hover:text-red-300">
                 Logout
               </button>
             </>

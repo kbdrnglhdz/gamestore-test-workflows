@@ -43,21 +43,21 @@ Users SHALL browse products in pages of 10 items.
 **KNOWN BUG — RESOLVED:** Page 2 previously returned the same products as page 1 due to `skip: 0` being hardcoded in the Prisma query. The fix replaces the hardcoded value with the computed offset variable.
 
 ### Requirement: Price Filter
-Users SHALL filter products by price range.
+Users SHALL filter and sort products by price range using numerical comparison.
 
 #### Scenario: Filter by price range
 - **WHEN** a user applies a price filter between 10 and 30
-- **THEN** products with prices 15 and 25 are shown
+- **THEN** products with prices 15 and 25 are shown (numerical comparison, not alphabetical)
 
 #### Scenario: Sort by price ascending
 - **WHEN** a user selects "Price: Low to High"
-- **THEN** products are ordered from lowest to highest price
+- **THEN** products are ordered from lowest to highest price numerically
 
 #### Scenario: Sort by price descending
 - **WHEN** a user selects "Price: High to Low"
-- **THEN** products are ordered from highest to lowest price
+- **THEN** products are ordered from highest to lowest price numerically
 
-**KNOWN BUG:** Price filter orders products alphabetically instead of numerically.
+**KNOWN BUG — RESOLVED:** Price no longer stored as `String`; changed to `Float` in Prisma schema with CAST migration. Filtering and sorting now use numerical comparison.
 
 ### Requirement: Product Images
 Users SHALL view product images correctly.

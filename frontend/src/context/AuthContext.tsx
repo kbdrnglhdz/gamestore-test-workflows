@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api, setTokens, clearTokens, getToken, startProactiveRefresh, stopProactiveRefresh, setSessionCallbacks, clearSessionCallbacks, extendSession } from '../services/api';
 
 interface User {
@@ -14,7 +15,7 @@ interface AuthContextType {
   sessionExpiring: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
   extendSession: () => Promise<boolean>;
 }
 
@@ -84,12 +85,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     startProactiveRefresh();
   };
 
-  const logout = () => {
-    api.auth.logout();
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    try {
+      await api.auth.logout();
+    } catch {
+      // API failure — still proceed with local cleanup
+    }
     clearTokens();
     setUser(null);
     setSessionExpiring(false);
     stopProactiveRefresh();
+    navigate('/login');
   };
 
   return (
