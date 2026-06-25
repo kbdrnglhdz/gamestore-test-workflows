@@ -1,0 +1,39 @@
+name: OpenSpec Validation
+
+on:
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'openspec/**'
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install OpenSpec
+        run: npm install -g @fission-ai/openspec@latest
+      
+      - name: Validate OpenSpec
+        id: validate
+        run: |
+          openspec validate --all --json > validation.json
+          cat validation.json
+      
+      - name: Check validation result
+        run: |
+          INVALID=$(jq '.summary.totals.failed // 0' validation.json)
+          if [ "$INVALID" -ne 0 ]; then
+            echo "❌ Validation failed: $INVALID invalid changes"
+            exit 1
+          fi
+          echo "✅ All OpenSpec changes valid!"

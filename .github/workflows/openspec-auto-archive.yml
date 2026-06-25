@@ -1,0 +1,38 @@
+name: Auto-Archive Completed Changes
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 18 * * 5'  # Viernes 6 PM (UTC)
+  workflow_dispatch:
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install OpenSpec
+        run: npm install -g @fission-ai/openspec@latest
+      
+      - name: Archive completed changes
+        run: |
+          ./scripts/archive-completed.sh
+      
+      - name: Commit archived changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add openspec/specs/ openspec/changes/archive/
+          git commit -m "chore: auto-archive completed changes" || echo "No changes to commit"
+          git push
