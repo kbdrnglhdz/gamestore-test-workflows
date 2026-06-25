@@ -1,8 +1,5 @@
-# Catalog Specification
+## MODIFIED Requirements
 
-## Purpose
-Product listing, filtering, and pagination for GameStore.
-## Requirements
 ### Requirement: Product Pagination
 Users SHALL browse products in pages of 10 items. All public catalog endpoints SHALL enforce rate limiting.
 
@@ -23,7 +20,7 @@ Users SHALL browse products in pages of 10 items. All public catalog endpoints S
 - **THEN** page defaults to 1
 
 #### Scenario: Negative page number
-- **WHEN** a user requests page with a negative number
+- **WHEN** a user requests a page with a negative number
 - **THEN** page defaults to 1
 
 #### Scenario: Page beyond available data
@@ -84,6 +81,8 @@ The system SHALL provide related products for any given product, using order ana
 - WHEN the product is the only one in its category
 - THEN an empty related products section is shown (or hidden)
 
+## ADDED Requirements
+
 ### Requirement: Rate Limiting
 Public product listing and detail endpoints SHALL enforce a rate limit of 30 requests per minute per IP. Protected product write endpoints SHALL enforce a rate limit of 15 requests per minute per IP.
 
@@ -115,4 +114,3 @@ Public product listing and detail endpoints SHALL enforce a rate limit of 30 req
 
 - Rate limit checking SHALL add no more than 5ms overhead per request
 - Store in memory es aceptable para el alcance actual; SHOULD migrar a Redis si la aplicación escala a múltiples instancias
-

@@ -1,11 +1,12 @@
 import { Router, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
+import { publicLimiter, writeLimiter } from '../middleware/rateLimiter';
 
 const router = Router();
 const prisma = new PrismaClient();
 
-router.get('/', async (req, res) => {
+router.get('/', publicLimiter, async (req, res) => {
   try {
     const { page = '1', limit = '10', category, minPrice, maxPrice, sort, search } = req.query;
 
@@ -62,7 +63,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', publicLimiter, async (req, res) => {
   try {
     const { id } = req.params;
     const product = await prisma.product.findUnique({
@@ -79,7 +80,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', authenticate, async (req: AuthRequest, res: Response) => {
+router.post('/', authenticate, writeLimiter, async (req: AuthRequest, res: Response) => {
   try {
     const { name, description, price, image, stock, category } = req.body;
 
@@ -100,7 +101,7 @@ router.post('/', authenticate, async (req: AuthRequest, res: Response) => {
   }
 });
 
-router.put('/:id', authenticate, async (req: AuthRequest, res: Response) => {
+router.put('/:id', authenticate, writeLimiter, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
     const { name, description, price, image, stock, category } = req.body;
@@ -123,7 +124,7 @@ router.put('/:id', authenticate, async (req: AuthRequest, res: Response) => {
   }
 });
 
-router.delete('/:id', authenticate, async (req: AuthRequest, res: Response) => {
+router.delete('/:id', authenticate, writeLimiter, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
 

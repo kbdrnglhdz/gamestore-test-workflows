@@ -18,6 +18,10 @@ vi.mock('@prisma/client', () => ({
   },
 }));
 
+vi.mock('express-rate-limit', () => ({
+  default: () => (req: any, res: any, next: any) => next(),
+}));
+
 import productsRouter from '../routes/products';
 
 function createApp() {
