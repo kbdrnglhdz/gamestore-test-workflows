@@ -34,14 +34,13 @@ Users SHALL authenticate with email and password to access the system.
 - **AND** the response body SHALL contain `{ "error": "Invalid email format", "code": "VALIDATION_ERROR" }`
 
 ### Requirement: Session Persistence
-Users SHALL maintain their session for 15 minutes after login.
+Users SHALL maintain their session for 60 minutes after login.
 
 #### Scenario: Session timeout
-- **WHEN** 15 minutes pass without any request from an authenticated user
+- **WHEN** 60 minutes pass without any request from an authenticated user
 - **THEN** the session expires
 - **AND** the user must log in again
 
-**KNOWN BUG:** Session expires after 15 minutes regardless of user activity.
 **KNOWN BUG:** Refresh token never renews automatically.
 
 ### Requirement: Password Storage

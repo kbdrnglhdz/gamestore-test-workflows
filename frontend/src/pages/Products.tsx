@@ -21,12 +21,13 @@ export const Products = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [category, setCategory] = useState('');
   const [sort, setSort] = useState('');
+  const [search, setSearch] = useState('');
   const { addItem } = useCart();
   const { user } = useAuth();
 
   useEffect(() => {
     loadProducts();
-  }, [page, category, sort]);
+  }, [page, category, sort, search]);
 
   const loadProducts = async () => {
     setLoading(true);
@@ -34,6 +35,7 @@ export const Products = () => {
       const params: any = { page, limit: 10 };
       if (category) params.category = category;
       if (sort) params.sort = sort;
+      if (search) params.search = search;
       
       const data = await api.products.getAll(params);
       setProducts(data.products || []);
@@ -61,6 +63,13 @@ export const Products = () => {
       <h1 className="text-3xl font-bold mb-6">Products</h1>
       
       <div className="flex gap-4 mb-6">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={search}
+          onChange={e => { setSearch(e.target.value); setPage(1); }}
+          className="border p-2 rounded flex-1"
+        />
         <select
           value={category}
           onChange={e => { setCategory(e.target.value); setPage(1); }}

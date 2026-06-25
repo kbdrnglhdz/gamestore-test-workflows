@@ -1,22 +1,82 @@
+# OpenSpec Project Configuration for GameStore
+
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  
+  Idioma: Español
+  Todos los artefactos (proposal.md, design.md, spec.md, tasks.md) deben escribirse en español.
+  Términos técnicos (API, endpoint, middleware, schema) mantenlos en inglés.
+  Nombres de variables, funciones y archivos siempre en inglés.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
-#       - Cancela la implementación despues que termine un bloque de tareas. 
-#       - Cada bloque de tareas debes realizar un commit del progreso del cambio.
+  # GameStore - E-commerce de videojuegos
+  
+  ## Tech Stack
+  - Backend: Node.js 20 + Express + TypeScript + Prisma ORM + SQLite
+  - Frontend: React 18 + TypeScript + Vite + TailwindCSS
+  - Auth: JWT con refresh tokens (HTTP-only cookie)
+  - Testing: Jest (backend) + React Testing Library (frontend)
+  
+  ## Convenciones de código
+  - Usar ES modules (import/export, no require)
+  - Preferir async/await sobre callbacks
+  - Todas las API endpoints devuelven JSON: { success: boolean, data?: any, error?: string }
+  
+  ## Reglas de negocio
+  - Los productos deben validar stock antes de agregar al carrito
+  - Las sesiones expiran después de 60 minutos de inactividad
+  - Solo usuarios con rol ADMIN pueden modificar productos
+  
+  ## Bugs conocidos (aún no corregidos)
+  - Contraseñas en texto plano (security)
+  - No hay rate limiting en login
+  - El panel de admin es accesible para cualquier usuario autenticado
+
+  ## Domain-Specific Spec Templates
+  
+  When writing delta specs for specific domains, follow these templates (available in openspec/schemas/gamestore-schema/templates/domains/):
+  
+  **Auth Domain**:
+  - Include Security Requirements section (bcrypt, rate limiting, JWT expiry)
+  - Use scenarios for success, failure, and rate limiting
+  
+  **Catalog Domain**:
+  - Include Performance Requirements section (response time, N+1, pagination)
+  - Use pagination metadata (total, page, totalPages)
+  
+  **Payments Domain**:
+  - Include PCI Compliance section
+  - Never include card details in examples
+
+rules:
+  proposal:
+    - "Incluir una sección 'Impacto' que enumere los componentes afectados (backend, frontend, db)"
+    - "Incluir una sección 'Riesgos' con al menos un riesgo y su mitigación"
+    - "Estimar complejidad: Baja/Media/Alta"
+    - "Mencionar si requiere migración de base de datos"
+    - "Listar dependencias externas (librerías, APIs) si las hay necesarias para el cambio, sino hay dependencias darme la justificación"
+  
+  specs:
+    - "Cada requiremento DEBE tener al menos un escenario con formato Given/When/Then"
+    - "Incluir escenarios de error (ej. producto sin stock, usuario no autorizado)"
+    - "Usar SHALL para requisitos obligatorios, SHOULD para recomendados"
+    - "Referenciar requisitos existentes si se modifican"
+    - "Para cambios que afecten el dominio 'auth', el delta spec debe seguir la estructura del template `schemas/gamestore-schema/templates/domains/auth-spec.md` (disponible en el schema gamestore-schema)."
+    - "Para cambios que afecten el dominio 'catalog', el delta spec debe seguir la estructura del template `schemas/gamestore-schema/templates/domains/catalog-spec.md`."
+    - "Para cambios que afecten el dominio 'payments', el delta spec debe seguir la estructura del template `schemas/gamestore-schema/templates/domains/payments-spec.md`."
+    - "Si el cambio afecta múltiples dominios, crea secciones separadas para cada uno."
+    - "Mantén los requisitos de seguridad/rendimiento/compliance especificados en los templates."
+  
+  design:
+    - "Incluir una tabla de 'Decisiones de Arquitectura' con columnas: Decisión, Alternativas, Por qué"
+    - "Agregar un diagrama de flujo para procesos con más de 3 pasos (Diagramas mermaid), si no requiere diagrama darme la justificación"
+    - "Listar todos los archivos nuevos y modificados"
+    - "Incluir consideraciones de seguridad y rendimiento"
+  
+  tasks:
+    - "El primer grupo de tereas SIEMPRE DEBE ser crear una rama para el cambio (ej. feature/1234-nueva-funcionalidad)"
+    - "Agrupar tareas por capa (Backend, Frontend, Database, Testing)"
+    - "Cada tarea debe tener un ID jerárquico (1.1, 1.2, 2.1, etc.)"
+    - "Incluir tareas de prueba unitaria al inicio de cada capa (Backend, Frontend)"
+    - "Estimar tiempo por tarea (máximo 2 horas)"
+    - "Incluir tareas de verificación manual (smoke test + edge cases) cuando no exista cobertura automatizada"

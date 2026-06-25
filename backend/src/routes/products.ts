@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 router.get('/', async (req, res) => {
   try {
-    const { page = '1', limit = '10', category, minPrice, maxPrice, sort } = req.query;
+    const { page = '1', limit = '10', category, minPrice, maxPrice, sort, search } = req.query;
 
     // Pagination: offset is now computed from page param
     const pageNum = Math.max(1, parseInt(page as string) || 1);
@@ -21,6 +21,10 @@ router.get('/', async (req, res) => {
 
     if (category) {
       where.category = category as string;
+    }
+
+    if (search) {
+      where.name = { startsWith: search as string };
     }
 
     if (minPrice) {

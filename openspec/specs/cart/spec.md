@@ -108,11 +108,13 @@ Users SHALL see an accurate, up-to-date total for their cart.
 **KNOWN BUG:** `Cart.tsx` captures `localTotal` via `useState(total)` on first render, creating a stale closure that never updates (`frontend/src/pages/Cart.tsx:8`).
 
 ### Requirement: Checkout
-Users SHALL convert their cart items into an order.
+Users SHALL convert their cart items into an order, with stock validation and inventory decrement.
 
 #### Scenario: Successful checkout with valid data
 - **WHEN** an authenticated user completes the checkout form with a valid shipping address and payment method
+- **AND** all cart items have sufficient stock
 - **THEN** an order with status "pending" is created
+- **AND** product stock is decremented by the ordered quantity
 - **AND** the cart is cleared
 - **AND** a confirmation message is displayed
 
@@ -127,11 +129,17 @@ Users SHALL convert their cart items into an order.
 
 #### Scenario: Checkout with insufficient stock
 - **WHEN** an authenticated user attempts checkout with items exceeding available stock
-- **THEN** an error message is displayed identifying items without sufficient stock
+- **THEN** an error message is displayed identifying the product name, available stock, and requested quantity
 - **AND** no order is created
+- **AND** product stock is not decremented
+- **AND** the cart is not cleared
 
-**KNOWN BUG:** No stock validation is performed before creating the order (`backend/src/routes/orders.ts:26-27`).
-**KNOWN BUG:** Cart is not cleared server-side after successful checkout (`backend/src/routes/orders.ts:59-60`).
+#### Scenario: Concurrent checkout depleting stock
+- **WHEN** two authenticated users attempt checkout for the same product simultaneously
+- **AND** the combined requested quantity exceeds available stock
+- **THEN** the first user's order is created successfully
+- **AND** the second user receives an error identifying insufficient stock
+
 **KNOWN BUG:** Order is created immediately with no confirmation step (`backend/src/routes/orders.ts:62-63`).
 **KNOWN BUG:** No form validation on shipping address field (`frontend/src/pages/Checkout.tsx:11,77`).
 **KNOWN BUG:** Error/success messages use `alert()` instead of proper UI components (`frontend/src/pages/Checkout.tsx:43`).

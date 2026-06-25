@@ -23,8 +23,13 @@ router.post('/checkout', authenticate, async (req: AuthRequest, res: Response) =
       return res.status(400).json({ error: 'Cart is empty' });
     }
 
-    // BUG: No validation that stock is sufficient
-    // TODO: Validate stock before creating order
+    for (const item of cart.items) {
+      if (item.product.stock < item.quantity) {
+        return res.status(400).json({
+          error: `Insufficient stock for "${item.product.name}". Available: ${item.product.stock}, requested: ${item.quantity}`
+        });
+      }
+    }
 
     let total = 0;
     const orderItems = [];
@@ -40,27 +45,26 @@ router.post('/checkout', authenticate, async (req: AuthRequest, res: Response) =
       });
     }
 
-    const order = await prisma.order.create({
-      data: {
-        userId,
-        total,
-        status: 'pending',
-        items: {
-          create: orderItems
-        }
-      },
-      include: {
-        items: {
-          include: { product: true }
-        }
+    const order = await prisma.$transaction(async (tx) => {
+      const newOrder = await tx.order.create({
+        data: {
+          userId, total, status: 'pending',
+          items: { create: orderItems }
+        },
+        include: { items: { include: { product: true } } }
+      });
+
+      for (const item of cart.items) {
+        await tx.product.update({
+          where: { id: item.productId },
+          data: { stock: { decrement: item.quantity } }
+        });
       }
+
+      await tx.cartItem.deleteMany({ where: { cartId: cart.id } });
+
+      return newOrder;
     });
-
-    // BUG: Cart not cleared after checkout
-    // TODO: Clear cart after successful order
-
-    // BUG: No confirmation step - order created immediately
-    // TODO: Add confirmation step
 
     res.status(201).json(order);
   } catch (error: any) {

@@ -43,8 +43,9 @@ export const Checkout = () => {
         alert('Order placed successfully!'); // BUG: Should show confirmation
         navigate('/products');
       }
-    } catch (error) {
-      alert('Failed to place order');
+    } catch (error: any) {
+      const message = error?.message || 'Failed to place order';
+      alert(message);
     } finally {
       setLoading(false);
     }
