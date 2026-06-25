@@ -1,0 +1,19 @@
+
+echo "🔍 Validating OpenSpec changes..."
+
+CHANGED_CHANGES=$(git diff --cached --name-only | grep "openspec/changes/" | cut -d'/' -f3 | sort -u | sed '/^archive$/d')
+
+if [ -n "$CHANGED_CHANGES" ]; then
+  for change in $CHANGED_CHANGES; do
+    echo "Validating $change..."
+    openspec validate "$change" --strict
+    if [ $? -ne 0 ]; then
+      echo "❌ Validation failed for $change"
+      exit 1
+    fi
+  done
+fi
+
+openspec validate --specs
+
+echo "✅ OpenSpec validation passed!"
